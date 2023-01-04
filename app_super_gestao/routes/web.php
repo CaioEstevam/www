@@ -13,20 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/*
-Route::get('/', function () {
-    return 'Olá! Seja bem vindo ao curso caraleo!';
-});
-*/
-
-// Route::get('/sobre-nos', function () {
-//     return 'Sobre nós';
-// });
-
-// Route::get('/contato', function () {
-//     return 'Contato';
-// });
-
 
 Route::get('/', [\App\Http\Controllers\PrincipalController::class,'principal']);
 
