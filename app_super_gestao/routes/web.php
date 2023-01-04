@@ -1,5 +1,6 @@
 <?php
 
+use Faker\Guesser\Name;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,9 +15,21 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', [\App\Http\Controllers\PrincipalController::class,'principal']);
+Route::get('/', [\App\Http\Controllers\PrincipalController::class,'principal'])->name('site.index');
+Route::get('/sobre-nos', [\App\Http\Controllers\SobreNosController::class,'sobrenos'])->name('site.sobrenos');
+Route::get('/contato', [\App\Http\Controllers\ContatoController::class,'contato'])->name('site.contato');
+Route::get('/login', function() { return 'Login'; });
+ 
+Route::prefix('/app')->group(function(){
+    Route::get('/clientes', function() { return 'Clientes'; })->name('app.clientes');
+    Route::get('/fornecedor', [\App\Http\Controllers\FornecedorController::class,'index'])->name('app.fornecedor');
+    Route::get('/produtos', function() { return 'Produtos'; })->name('app.Produtos');
+});
 
-Route::get('/sobre-nos', [\App\Http\Controllers\SobreNosController::class,'sobrenos']);
 
-Route::get('/contato', [\App\Http\Controllers\ContatoController::class,'contato']);
+Route::get('/teste/{p1}/{p2}', [\App\Http\Controllers\TesteController::class,'teste'])->Name('site.teste');
 
+
+Route::fallback(function(){
+    echo 'A cacilda da rota não existe. <a href="'.route('site.index'),'">clique aqui</a> para retornar à pagina inicial'; 
+});
